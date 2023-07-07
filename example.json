@@ -1,0 +1,347 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.",
+    "version": "1.0.6",
+    "title": "Swagger Petstore",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": { "email": "apiteam@swagger.io" },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "petstore.swagger.io",
+  "basePath": "/v2",
+  "tags": [
+    {
+      "name": "pet",
+      "description": "Everything about your Pets",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    },
+    { "name": "store", "description": "Access to Petstore orders" },
+    {
+      "name": "user",
+      "description": "Operations about user",
+      "externalDocs": {
+        "description": "Find out more about our store",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "schemes": ["https", "http"],
+  "paths": {
+    "/pet": {
+      "post": {
+        "tags": ["pet"],
+        "summary": "Add a new pet to the store",
+        "description": "Returns the GitHub App associated with the authentication credentials used. To see how many app installations are associated with this GitHub App, see the `installations_count` in the response. For more details about your app's installations, see the \"[List installations for the authenticated app](https://docs.github.com/enterprise-server@3.0/rest/reference/apps#list-installations-for-the-authenticated-app)\" endpoint.\n\nYou must use a [JWT](https://docs.github.com/enterprise-server@3.0/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.",
+        "operationId": "addPet",
+        "consumes": ["application/json", "application/xml"],
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "tags",
+            "in": "query",
+            "description": "Tags to filter by",
+            "required": true,
+            "type": "array",
+            "items": { "type": "string" },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "tags",
+            "in": "header",
+            "description": "Tags to filter by",
+            "required": true,
+            "type": "array",
+            "items": { "type": "string" },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "since",
+            "description": "Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "default": 1
+            }
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Pet object that needs to be added to the store",
+            "required": true,
+            "schema": { "$ref": "#/definitions/Pet" }
+          },
+          {
+            "name": "client_id",
+            "in": "path",
+            "required": true,
+            "description": "The client ID of your GitHub app.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "if returning an existing token",
+            "schema": {
+              "title": "User",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "const": "Constant name",
+                  "examples": [
+                    "Example name",
+                    "Different name",
+                    "Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                  ],
+                  "description": "The user's full name. This description can be long and should truncate once it reaches the end of the row. If it's not truncating then theres and issue that needs to be fixed. Help!"
+                },
+                "age": {
+                  "type": "number",
+                  "minimum": 10,
+                  "maximum": 40,
+                  "multipleOf": 10,
+                  "default": 20,
+                  "enum": [10, 20, 30, 40],
+                  "readOnly": true
+                },
+                "completed_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "writeOnly": true,
+                  "pattern": "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"
+                },
+                "avatar": {
+                  "type": "string",
+                  "format": "byte",
+                  "description": "Base64-encoded contents of the avatar image"
+                },
+                "items": {
+                  "type": ["null", "array"],
+                  "items": {
+                    "type": ["string", "number"]
+                  },
+                  "minItems": 1,
+                  "maxItems": 4,
+                  "description": "This description can be long and should truncate once it reaches the end of the row. If it's not truncating then theres and issue that needs to be fixed. Help!"
+                },
+                "email": {
+                  "type": "string",
+                  "format": "email",
+                  "examples": ["one@email.com", "two@email.com"],
+                  "deprecated": true,
+                  "default": "default@email.com",
+                  "minLength": 2
+                },
+                "plan": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "foo": {
+                          "type": "string"
+                        },
+                        "bar": {
+                          "type": "string"
+                        }
+                      },
+                      "deprecated": false,
+                      "example": "hi",
+                      "required": ["foo", "bar"]
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  ]
+                },
+                "permissions": {
+                  "type": ["string", "object"],
+                  "properties": {
+                    "ids": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                },
+                "ref": {
+                  "$ref": "#/properties/permissions"
+                }
+              },
+              "patternProperties": {
+                "^id_": { "type": "number" },
+                "foo": { "type": "integer" },
+                "_name$": { "type": "string" }
+              },
+              "required": ["name", "age", "completed_at"]
+            },
+            "headers": {
+              "X-Expires-After": {
+                "type": "string",
+                "format": "date-time",
+                "description": "date in UTC when token expires"
+              },
+              "X-Rate-Limit": {
+                "type": "integer",
+                "format": "int32",
+                "description": "calls per hour allowed by the user"
+              }
+            }
+          },
+          "201": {
+            "description": "**Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.0/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/enterprise-server@3.0/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.0/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/authorization"
+                },
+                "examples": {
+                  "default": {
+                    "$ref": "#/components/examples/authorization"
+                  }
+                }
+              }
+            },
+            "headers": {
+              "Location": {
+                "example": "https://api.github.com/authorizations/1",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "if returning an existing token"
+          },
+          "304": {
+            "description": "if returning an existing token"
+          },
+          "403": {
+            "description": "if returning an existing token"
+          },
+          "401": {
+            "description": "if returning an existing token"
+          }
+        },
+        "security": [{ "petstore_auth": ["write:pets", "read:pets"] }],
+        "deprecated": true
+      }
+    }
+  },
+  "securityDefinitions": {
+    "api_key": { "type": "apiKey", "name": "api_key", "in": "header" },
+    "petstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "https://petstore.swagger.io/oauth/authorize",
+      "flow": "implicit",
+      "scopes": {
+        "read:pets": "read your pets",
+        "write:pets": "modify pets in your account"
+      }
+    }
+  },
+  "definitions": {
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "integer", "format": "int32" },
+        "type": { "type": "string" },
+        "message": { "type": "string" }
+      }
+    },
+    "Category": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer", "format": "int64" },
+        "name": { "type": "string" }
+      },
+      "xml": { "name": "Category" }
+    },
+    "Pet": {
+      "type": "object",
+      "required": ["name", "photoUrls"],
+      "properties": {
+        "id": { "type": "integer", "format": "int64" },
+        "category": { "$ref": "#/definitions/Category" },
+        "name": { "type": "string", "example": "doggie" },
+        "photoUrls": {
+          "type": "array",
+          "xml": { "wrapped": true },
+          "items": { "type": "string", "xml": { "name": "photoUrl" } }
+        },
+        "tags": {
+          "type": "array",
+          "xml": { "wrapped": true },
+          "items": { "xml": { "name": "tag" }, "$ref": "#/definitions/Tag" }
+        },
+        "status": {
+          "type": "string",
+          "description": "pet status in the store",
+          "enum": ["available", "pending", "sold"]
+        }
+      },
+      "xml": { "name": "Pet" }
+    },
+    "Tag": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer", "format": "int64" },
+        "name": { "type": "string" }
+      },
+      "xml": { "name": "Tag" }
+    },
+    "Order": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer", "format": "int64" },
+        "petId": { "type": "integer", "format": "int64" },
+        "quantity": { "type": "integer", "format": "int32" },
+        "shipDate": { "type": "string", "format": "date-time" },
+        "status": {
+          "type": "string",
+          "description": "Order Status",
+          "enum": ["placed", "approved", "delivered"]
+        },
+        "complete": { "type": "boolean" }
+      },
+      "xml": { "name": "Order" }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer", "format": "int64" },
+        "username": { "type": "string" },
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "email": { "type": "string" },
+        "password": { "type": "string" },
+        "phone": { "type": "string" },
+        "userStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "User Status"
+        }
+      },
+      "xml": { "name": "User" }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
