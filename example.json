@@ -90,7 +90,8 @@
             "required": true,
             "description": "The client ID of your GitHub app.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "howdy"
             }
           }
         ],
