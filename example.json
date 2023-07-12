@@ -89,6 +89,7 @@
             "in": "path",
             "required": true,
             "description": "The client ID of your GitHub app.",
+            "example": "test",
             "schema": {
               "type": "string"
             }
