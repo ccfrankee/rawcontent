@@ -264,6 +264,11 @@
       "type": "apiKey"
     }
   },
+  "security": [
+    {
+      "global": []
+    }
+  ],
   "definitions": {
     "ApiResponse": {
       "type": "object",
