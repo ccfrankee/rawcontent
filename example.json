@@ -257,6 +257,11 @@
         "read:pets": "read your pets",
         "write:pets": "modify pets in your account"
       }
+    },
+    "global": {
+      "in": "query",
+      "name": "access_token",
+      "type": "apiKey"
     }
   },
   "definitions": {
