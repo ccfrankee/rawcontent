@@ -245,7 +245,13 @@
         "security": [
           { "petstore_auth": ["write:pets", "read:pets"] },
           {
-            "apiKey": []
+            "api_key": []
+          },
+          {
+            "basicAuth": []
+          },
+          {
+            "global": []
           }
         ],
         "deprecated": true
