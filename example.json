@@ -242,7 +242,12 @@
             "description": "if returning an existing token"
           }
         },
-        "security": [{ "petstore_auth": ["write:pets", "read:pets"] }],
+        "security": [
+          { "petstore_auth": ["write:pets", "read:pets"] },
+          {
+            "apiKey": []
+          }
+        ],
         "deprecated": true
       }
     }
@@ -258,6 +263,9 @@
         "write:pets": "modify pets in your account"
       }
     },
+    "basicAuth": {
+      "type": "basic"
+    },
     "global": {
       "in": "query",
       "name": "access_token",
@@ -265,6 +273,12 @@
     }
   },
   "security": [
+    {
+      "apiKey": []
+    },
+    {
+      "basicAuth": []
+    },
     {
       "global": []
     }
