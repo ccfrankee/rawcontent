@@ -75,6 +75,13 @@ paths:
           application/xml:
             schema:
               $ref: '#/components/schemas/Pet'
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                profileImage:
+                  type: string
+                  format: binary
         required: true
       responses:
         200:
