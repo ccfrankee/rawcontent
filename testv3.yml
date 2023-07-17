@@ -53,14 +53,21 @@ paths:
         - name: tags
           in: query
           description: Tags to filter by
-          required: true
+          required: false
           style: form
           explode: true
           schema:
             type: array
             items:
               type: string
-        - name: tags
+        - name: testId
+          in: query
+          description: test query
+          required: true
+          description: test ID
+          schema:
+            type: integer
+        - name: testHeader
           in: header
           description: Tags to filter by
           required: true
@@ -120,7 +127,7 @@ paths:
           content:
             application/json:
               schema:
-                title: User
+                title: JSON data
                 required:
                   - age
                   - completed_at
@@ -160,7 +167,7 @@ paths:
                           type: integer
             application/xml:
               schema:
-                title: User
+                title: XML Data
                 required:
                   - age
                   - completed_at
@@ -170,39 +177,11 @@ paths:
                   name:
                     type: string
                     description: The user's full name. This description can be long and should truncate once it reaches the end of the row. If it's not truncating then theres and issue that needs to be fixed. Help!
-                  age:
-                    multipleOf: 1E+1
-                    maximum: 4E+1
-                    minimum: 1E+1
-                    type: number
-                    readOnly: true
-                  completed_at:
-                    type: string
-                    format: date-time
-                  avatar:
-                    pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
-                    type: string
-                    description: Base64-encoded contents of the avatar image
-                    format: byte
-                  email:
-                    minLength: 2
-                    type: string
-                    format: email
-                    default: default@email.com
-                  plan:
-                    type: object
-                  permissions:
-                    type: object
-                    properties:
-                      ids:
-                        type: array
-                        items:
-                          type: integer
             image/jpeg:
               schema:
-                title: User
+                title: Image data
                 required:
-                  - age
+                  - test
                   - completed_at
                   - name
                 type: object
@@ -210,7 +189,7 @@ paths:
                   name:
                     type: string
                     description: The user's full name. This description can be long and should truncate once it reaches the end of the row. If it's not truncating then theres and issue that needs to be fixed. Help!
-                  age:
+                  test:
                     multipleOf: 1E+1
                     maximum: 4E+1
                     minimum: 1E+1
@@ -224,23 +203,9 @@ paths:
                     type: string
                     description: Base64-encoded contents of the avatar image
                     format: byte
-                  email:
-                    minLength: 2
-                    type: string
-                    format: email
-                    default: default@email.com
-                  plan:
-                    type: object
-                  permissions:
-                    type: object
-                    properties:
-                      ids:
-                        type: array
-                        items:
-                          type: integer
             multipart/form-data:
               schema:
-                title: User
+                title: Form data
                 required:
                   - age
                   - completed_at
@@ -264,20 +229,6 @@ paths:
                     type: string
                     description: Base64-encoded contents of the avatar image
                     format: byte
-                  email:
-                    minLength: 2
-                    type: string
-                    format: email
-                    default: default@email.com
-                  plan:
-                    type: object
-                  permissions:
-                    type: object
-                    properties:
-                      ids:
-                        type: array
-                        items:
-                          type: integer
         201:
           description: '**Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.0/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/enterprise-server@3.0/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.0/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).'
           headers:
