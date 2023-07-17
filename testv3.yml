@@ -44,6 +44,12 @@ paths:
         You must use a [JWT](https://docs.github.com/enterprise-server@3.0/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
       operationId: addPet
       parameters:
+        - name: userId
+          in: path
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the user to get
         - name: tags
           in: query
           description: Tags to filter by
@@ -79,10 +85,24 @@ paths:
             schema:
               type: object
               properties:
+                id: # Part 1 (string value)
+                  type: string
+                  format: uuid
+                address: # Part2 (object)
+                  type: object
+                  properties:
+                    street:
+                      type: string
+                    city:
+                      type: string
                 profileImage:
                   type: string
                   format: binary
-        required: true
+          image/png:
+            schema:
+              type: string
+              format: binary
+              required: true
       responses:
         200:
           description: if returning an existing token
