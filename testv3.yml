@@ -5,6 +5,8 @@ info:
   termsOfService: http://swagger.io/terms/
   contact:
     email: apiteam@swagger.io
+    url: https://www.example.com/support
+    name: bob marley
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
@@ -33,7 +35,7 @@ tags:
       description: Find out more about our store
       url: http://swagger.io
 paths:
-  /pet:
+  /pet**:
     post:
       tags:
         - pet
@@ -44,12 +46,6 @@ paths:
         You must use a [JWT](https://docs.github.com/enterprise-server@3.0/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
       operationId: addPet
       parameters:
-        - name: userId
-          in: path
-          schema:
-            type: integer
-          required: true
-          description: Numeric ID of the user to get
         - name: tags
           in: query
           description: Tags to filter by
@@ -64,7 +60,6 @@ paths:
           in: query
           description: test query
           required: true
-          description: test ID
           schema:
             type: integer
         - name: testHeader
@@ -109,9 +104,8 @@ paths:
             schema:
               type: string
               format: binary
-              required: true
       responses:
-        200:
+        '200':
           description: if returning an existing token
           headers:
             X-Rate-Limit:
@@ -229,13 +223,12 @@ paths:
                     type: string
                     description: Base64-encoded contents of the avatar image
                     format: byte
-        201:
+        '201':
           description: '**Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.0/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/enterprise-server@3.0/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.0/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).'
           headers:
             Location:
               schema:
                 type: object
-                example: https://api.github.com/authorizations/1
           content:
             application/json:
               schema:
@@ -277,16 +270,16 @@ paths:
                   username:
                     type: string
                     description: The user name.
-        304:
+        '304':
           description: if returning an existing token
           content: {}
-        401:
+        '401':
           description: if returning an existing token
           content: {}
-        403:
+        '403':
           description: if returning an existing token
           content: {}
-        422:
+        '422':
           description: if returning an existing token
           content: {}
       deprecated: true
@@ -297,6 +290,7 @@ paths:
         - api_key: []
         - basicAuth: []
         - global: []
+        - cookieAuth: []
       x-codegen-request-body-name: body
 components:
   schemas:
@@ -422,6 +416,10 @@ components:
       type: apiKey
       name: api_key
       in: header
+    cookieAuth: # arbitrary name for the security scheme; will be used in the "security" key later
+      type: apiKey
+      in: cookie
+      name: JSESSIONID # cookie name
     petstore_auth:
       type: oauth2
       flows:
@@ -433,7 +431,11 @@ components:
     basicAuth:
       type: http
       scheme: basic
-    global:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    queryAccess:
       type: apiKey
       name: access_token
       in: query

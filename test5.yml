@@ -1,0 +1,49 @@
+openapi: 3.0.3
+info:
+  title: My API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3008
+paths:
+  /:
+    get:
+      operationId: 'test'
+      summary: Example endpoint
+      responses:
+        '200':
+          description: Successful response
+  /image:
+    get:
+      operationId: 'testImage'
+      summary: Example endpoint
+      responses:
+        '200':
+          description: Successful response
+  /pdf:
+    get:
+      operationId: 'testPdf'
+      summary: Example endpoint
+      responses:
+        '200':
+          description: Successful response
+  /xml:
+    get:
+      operationId: 'testXml'
+      summary: Example endpoint
+      responses:
+        '200':
+          description: Successful response
+  /plain:
+    get:
+      operationId: 'testPlain'
+      summary: Example endpoint
+      responses:
+        '200':
+          description: Successful response
+  /nothing:
+    get:
+      operationId: 'testEmpty'
+      summary: Example endpoint
+      responses:
+        '200':
+          description: Successful response
